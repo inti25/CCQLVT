@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="5dp"
+            android:duplicateParentState="true"
+            android:textColor="#FAFAFA" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:duplicateParentState="true"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_margin="3dp"
+            android:duplicateParentState="true"
+            android:text="Số lượng: " />
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_margin="3dp"
+            android:layout_toRightOf="@+id/lblNumber"
+            android:duplicateParentState="true"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/title"
+            android:layout_margin="3dp"
+            android:duplicateParentState="true"
+            android:text="100,000" />
+
+        <TextView
+            android:id="@+id/lblprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_margin="3dp"
+            android:layout_toLeftOf="@+id/price"
+            android:duplicateParentState="true"
+            android:text="Thành tiền:" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/lblprice"
+            android:background="@android:color/darker_gray" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

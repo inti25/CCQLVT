@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CCQLVT.iml" filepath="$PROJECT_DIR$/CCQLVT.iml" />
+      <module fileurl="file://E:\WORKS\Android\CCQLVT\CCQLVT.iml" filepath="E:\WORKS\Android\CCQLVT\CCQLVT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>

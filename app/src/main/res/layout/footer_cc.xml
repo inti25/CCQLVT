@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:paddingLeft="16dp">
+
+    <TextView
+        android:id="@+id/payed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="6dp"
+        android:text="Đã thanh toán:"
+        android:textAlignment="center"
+        android:textColor="#FAFAFA"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/payedvl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/payed"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:padding="6dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="#FAFAFA"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/notpay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/payed"
+        android:gravity="center_vertical"
+        android:padding="6dp"
+        android:text="Chưa thanh toán:"
+        android:textAlignment="center"
+        android:textColor="#FAFAFA"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/notpayvl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/notpay"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/payedvl"
+        android:gravity="center_vertical"
+        android:padding="6dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="#FAFAFA"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvtc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/notpay"
+        android:gravity="center_vertical"
+        android:padding="6dp"
+        android:text="Tổng:"
+        android:textAlignment="center"
+        android:textColor="#FAFAFA"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvtcvl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/tvtc"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/notpayvl"
+        android:gravity="center_vertical"
+        android:padding="6dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="#FAFAFA"
+        android:textStyle="bold" />
+</RelativeLayout>
