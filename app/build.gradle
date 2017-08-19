@@ -3,6 +3,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+	signingConfigs {
+        inti_key {
+            keyAlias 'inti_alias'
+            keyPassword 'inti@123'
+            storeFile file('../inti_keystore.jks')
+            storePassword 'inti@123'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
@@ -14,6 +22,7 @@ android {
     }
     buildTypes {
         release {
+			signingConfig signingConfigs.inti_key
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
