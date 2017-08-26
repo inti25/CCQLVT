@@ -1,6 +1,5 @@
 package sec.hungn1.ccqlvt.ui.adapter
 
-import android.app.AlertDialog
 import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.Paint
@@ -15,7 +14,7 @@ import org.greenrobot.eventbus.EventBus
 import sec.hungn1.ccqlvt.R
 import sec.hungn1.ccqlvt.core.application.Constants
 import sec.hungn1.ccqlvt.core.database.entities.Material
-import sec.hungn1.ccqlvt.ui.AddMaterialDialog
+import sec.hungn1.ccqlvt.ui.dialog.AddMaterialDialog
 import sec.hungn1.ccqlvt.util.Event
 import sec.hungn1.ccqlvt.util.Utils
 
@@ -115,11 +114,11 @@ class MaterialAdapter() : RecyclerView.Adapter<MaterialAdapter.ViewHolder>() {
                         holder.mContainer.setOnLongClickListener { view: View ->
                             android.support.v7.app.AlertDialog.Builder(view.context)
                                     .setTitle("Hành động")
-                                    .setPositiveButton("Xóa", { dialog: DialogInterface, i: Int ->
+                                    .setPositiveButton("Xóa", { dialog: DialogInterface, _: Int ->
                                         EventBus.getDefault().post(Event(Constants.EVENT_MATERIAL_REMOVE, item))
                                         dialog.dismiss()
                                     })
-                                    .setNegativeButton("Sửa", { dialog: DialogInterface?, i: Int ->
+                                    .setNegativeButton("Sửa", { dialog: DialogInterface?, _: Int ->
                                         AddMaterialDialog(view.context, item).show()
                                         dialog?.dismiss()
                                     })

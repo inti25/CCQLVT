@@ -20,7 +20,7 @@ class AddCcAdapter(data: ArrayList<CcRecord>) : RecyclerView.Adapter<AddCcAdapte
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         if (holder is ViewHolder) {
             val item = getItem(position)
-            item?.let {
+            item.let {
                 with(holder) {
                     holder.hName.text = item.humanName
                     holder.rgroup.setOnCheckedChangeListener { radioGroup, i ->

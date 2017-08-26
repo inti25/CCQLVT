@@ -6,16 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.item_view_human.view.*
+import sec.hungn1.ccqlvt.R
 import sec.hungn1.ccqlvt.core.database.entities.Human
 
 /**
  * Created by hung.nq1 on 8/8/2017.
  */
 
-class HumanAdapter(
-        protected var mlayout: Int,
-        protected var mData: List<Human>
+class HumanAdapter(var mListener: OnItemClickListener? = null
 ) : RecyclerView.Adapter<HumanAdapter.ViewHolder>() {
+
+    protected var mData: ArrayList<Human> = ArrayList()
 
     override fun getItemCount(): Int {
         return mData.size
@@ -25,17 +26,21 @@ class HumanAdapter(
         return mData.get(position);
     }
 
-    fun updateData(data: List<Human>) {
-        mData = data
+    fun updateData(data: ArrayList<Human>) {
+        mData.clear()
+        val all = Human(null, "Tất cả")
+        mData.add(all)
+        mData.addAll(data)
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         if (holder is ViewHolder) {
             val item = getItem(position)
-            item?.let {
+            item.let {
                 with(holder) {
-                    itemView.tvHumanName.text = item.name
+                    mHumanNameView.text = item.name
+                    mHumanNameView.setOnClickListener { _ -> listener?.onItemClick(item) }
                 }
             }
         }
@@ -43,11 +48,15 @@ class HumanAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent?.context)
-        val view = inflater.inflate(mlayout, parent, false)
-        return ViewHolder(view);
+        val view = inflater.inflate(R.layout.item_view_human, parent, false)
+        return ViewHolder(view, mListener);
     }
 
-    open class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    open class ViewHolder(itemView: View, var listener: OnItemClickListener? = null) : RecyclerView.ViewHolder(itemView) {
         val mHumanNameView: TextView = itemView.tvHumanName
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(human: Human)
     }
 }

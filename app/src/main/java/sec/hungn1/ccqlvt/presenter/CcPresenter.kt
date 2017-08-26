@@ -1,8 +1,14 @@
 package sec.hungn1.ccqlvt.presenter
 
+import android.util.Log
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Predicate
+import io.reactivex.schedulers.Schedulers
 import sec.hungn1.ccqlvt.core.database.dao.CcRecordDao
 import sec.hungn1.ccqlvt.core.database.entities.RecordItem
 import sec.hungn1.ccqlvt.core.presentation.BasePresenter
+import sec.hungn1.ccqlvt.core.presentation.RxPresenter
 import sec.hungn1.ccqlvt.presenter.contract.CcContract
 import java.util.*
 import javax.inject.Inject
@@ -11,17 +17,17 @@ import kotlin.collections.ArrayList
 /**
  * Created by hung.nq1 on 8/8/2017.
  */
-class CcPresenter : BasePresenter<CcContract.View>, CcContract.Presenter {
-    var mView: CcContract.View? = null
-    lateinit var mRecordDao: CcRecordDao
+class CcPresenter @Inject constructor(recordDao: CcRecordDao) : RxPresenter<CcContract.View>(), CcContract.Presenter {
+    var mRecordDao: CcRecordDao = recordDao
 
-    @Inject
-    constructor(recordDao: CcRecordDao) {
-        mRecordDao = recordDao
-    }
-
-    override fun getData(): ArrayList<RecordItem> {
-        return sortAndSetSection(mRecordDao.getAllRecordItem())
+    override fun getData(hid: Int?) {
+        addSubscribe(mRecordDao.getAllRecordItem(hid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { t -> sortAndSetSection(t) }
+                .subscribe({ t ->
+                    mView?.updateData(t)
+                }))
     }
 
     fun sortAndSetSection(itemList: List<RecordItem>): ArrayList<RecordItem> {

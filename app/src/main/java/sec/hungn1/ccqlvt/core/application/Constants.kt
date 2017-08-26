@@ -13,4 +13,5 @@ object Constants {
     const val EVENT_MATERIAL_REMOVE = "material_remove"
     const val EVENT_OTHER_UPDATEED = "other_updated"
     const val EVENT_OTHER_REMOVE = "other_remove"
+    const val EVENT_HUMAN_FILLTER = "human_fillter"
 }

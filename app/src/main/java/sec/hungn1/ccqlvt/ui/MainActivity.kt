@@ -8,12 +8,10 @@ import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import me.yokeyword.fragmentation.SupportFragment
-import org.w3c.dom.Text
 import sec.hungn1.ccqlvt.R
 import sec.hungn1.ccqlvt.core.application.Constants
 import sec.hungn1.ccqlvt.core.database.entities.Material
@@ -21,6 +19,10 @@ import sec.hungn1.ccqlvt.core.database.entities.Other
 import sec.hungn1.ccqlvt.core.presentation.BaseActivity
 import sec.hungn1.ccqlvt.presenter.MainPresenter
 import sec.hungn1.ccqlvt.presenter.contract.MainContract
+import sec.hungn1.ccqlvt.ui.dialog.AddCcFormDialog
+import sec.hungn1.ccqlvt.ui.dialog.AddMaterialDialog
+import sec.hungn1.ccqlvt.ui.dialog.AddOtherDialog
+import sec.hungn1.ccqlvt.ui.dialog.HumanFillterDialog
 import sec.hungn1.ccqlvt.util.SharedPreferenceUtil
 
 class MainActivity() : BaseActivity<MainPresenter, MainContract.View>(), NavigationView.OnNavigationItemSelectedListener, MainContract.View {
@@ -43,12 +45,19 @@ class MainActivity() : BaseActivity<MainPresenter, MainContract.View>(), Navigat
         mShowFragment = SharedPreferenceUtil.getCurrentPage()
         showHideFragment(getTargetFragment(mShowFragment), getTargetFragment(mCurrentFragment))
         mCurrentFragment = mShowFragment
-        fab.setOnClickListener { view ->
+        fabReport.setOnClickListener { _ ->
             when (mCurrentFragment) {
                 Constants.CC_PAGE -> AddCcFormDialog(this).show()
                 Constants.MATERIALS_PAGE -> AddMaterialDialog(this, Material()).show()
                 Constants.ETC_PAGE -> AddOtherDialog(this, Other()).show()
             }
+            floatingMenu.close(true)
+        }
+        fabFillter.setOnClickListener { _ ->
+            when (mCurrentFragment) {
+                Constants.CC_PAGE -> HumanFillterDialog(this).show()
+            }
+            floatingMenu.close(true)
         }
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -149,10 +158,10 @@ class MainActivity() : BaseActivity<MainPresenter, MainContract.View>(), Navigat
                 .setTitle("Thêm thợ")
                 .setMessage("Nhập tên thợ rồi bấm thêm")
                 .setView(textView)
-                .setPositiveButton("Thêm", { dialog: DialogInterface, i: Int ->
+                .setPositiveButton("Thêm", { _: DialogInterface, _: Int ->
                     mPresenter.addHuman(textView.text.toString())
                 })
-                .setNegativeButton("Hủy", { dialog: DialogInterface?, i: Int -> dialog?.dismiss() })
+                .setNegativeButton("Hủy", { dialog: DialogInterface?, _: Int -> dialog?.dismiss() })
                 .show()
     }
 }

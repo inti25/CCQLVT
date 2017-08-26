@@ -1,16 +1,16 @@
-package sec.hungn1.ccqlvt.ui
+package sec.hungn1.ccqlvt.ui.dialog
 
 import android.app.DatePickerDialog
 import android.content.Context
 import android.view.WindowManager
 import android.widget.Toast
-import kotlinx.android.synthetic.main.dialog_add_other.*
+import kotlinx.android.synthetic.main.dialog_add_material.*
 import org.greenrobot.eventbus.EventBus
 import sec.hungn1.ccqlvt.R
 import sec.hungn1.ccqlvt.core.application.App
 import sec.hungn1.ccqlvt.core.application.Constants
-import sec.hungn1.ccqlvt.core.database.dao.OtherDao
-import sec.hungn1.ccqlvt.core.database.entities.Other
+import sec.hungn1.ccqlvt.core.database.dao.MaterialDao
+import sec.hungn1.ccqlvt.core.database.entities.Material
 import sec.hungn1.ccqlvt.core.presentation.BaseDialog
 import sec.hungn1.ccqlvt.util.Event
 import java.text.SimpleDateFormat
@@ -20,13 +20,13 @@ import javax.inject.Inject
 /**
  * Created by hung.nq1 on 8/11/2017.
  */
-class AddOtherDialog(context: Context, var mOther: Other) : BaseDialog(context) {
+class AddMaterialDialog(context: Context, var mMaterial: Material) : BaseDialog(context) {
 
     @Inject
-    lateinit var mOtherDao: OtherDao
+    lateinit var mMaterialDao: MaterialDao
     var mContext = context
     var myCalendar = Calendar.getInstance()
-    val mDateListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+    val mDateListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
         myCalendar.set(Calendar.YEAR, year)
         myCalendar.set(Calendar.MONTH, monthOfYear)
         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -35,25 +35,25 @@ class AddOtherDialog(context: Context, var mOther: Other) : BaseDialog(context) 
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.dialog_add_other
+        return R.layout.dialog_add_material
     }
 
     override fun initViewAndData() {
         setNonHour()
         updateLabel()
         updateData()
-        btnAdd.setOnClickListener { view ->
+        btnAdd.setOnClickListener { _ ->
             run {
                 addMaterial()
                 dismiss()
             }
         }
-        btnCancel.setOnClickListener { view ->
+        btnCancel.setOnClickListener { _ ->
             run {
                 dismiss()
             }
         }
-        date.setOnClickListener { view ->
+        date.setOnClickListener { _ ->
             run {
                 DatePickerDialog(mContext, mDateListener, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
@@ -65,26 +65,28 @@ class AddOtherDialog(context: Context, var mOther: Other) : BaseDialog(context) 
     }
 
     private fun updateData() {
-        if (mOther.id != null) {
-            title.setText(mOther.title.toString())
-            total.setText(mOther.total.toString())
-            myCalendar.timeInMillis = mOther.time
-            cbIsPayed.isChecked = mOther.isPayed
+        if (mMaterial.id != null) {
+            title.setText(mMaterial.title.toString())
+            number.setText(mMaterial.number.toString())
+            total.setText(mMaterial.total.toString())
+            myCalendar.timeInMillis = mMaterial.time
+            cbIsPayed.isChecked = mMaterial.isPayed
             updateLabel()
         }
     }
 
     private fun addMaterial() {
-        mOther.time = myCalendar.timeInMillis
-        mOther.title = title.text.toString()
-        mOther.total = total.text.toString().toLong()
-        mOther.isPayed = cbIsPayed.isChecked
+        mMaterial.time = myCalendar.timeInMillis
+        mMaterial.title = title.text.toString()
+        mMaterial.number = number.text.toString()
+        mMaterial.total = total.text.toString().toLong()
+        mMaterial.isPayed = cbIsPayed.isChecked
         try {
-            if (mOther.id == null)
-                mOtherDao.insert(mOther)
+            if (mMaterial.id == null)
+                mMaterialDao.insert(mMaterial)
             else
-                mOtherDao.update(mOther)
-            EventBus.getDefault().post(Event(Constants.EVENT_OTHER_UPDATEED))
+                mMaterialDao.update(mMaterial)
+            EventBus.getDefault().post(Event(Constants.EVENT_MATERIAL_UPDATEED))
         } catch (e: Exception) {
             Toast.makeText(mContext, e.message.toString(), Toast.LENGTH_SHORT).show()
         }

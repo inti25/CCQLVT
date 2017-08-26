@@ -23,7 +23,7 @@ import javax.inject.Inject
 class MainPresenter : BasePresenter<MainContract.View>, MainContract.Presenter {
 
     val TAG = "MainPresenter"
-    lateinit var mHumanDao: HumanDao
+    var mHumanDao: HumanDao
 
     @Inject
     constructor(humanDao: HumanDao) {

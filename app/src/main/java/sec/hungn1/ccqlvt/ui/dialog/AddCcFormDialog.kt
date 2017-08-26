@@ -1,4 +1,4 @@
-package sec.hungn1.ccqlvt.ui
+package sec.hungn1.ccqlvt.ui.dialog
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -34,7 +34,7 @@ class AddCcFormDialog(context: Context) : BaseDialog(context) {
     lateinit var mLayoutManager: RecyclerView.LayoutManager
     var mContext = context
     var myCalendar = Calendar.getInstance()
-    val date = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+    val date = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
         myCalendar.set(Calendar.YEAR, year)
         myCalendar.set(Calendar.MONTH, monthOfYear)
         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -60,18 +60,18 @@ class AddCcFormDialog(context: Context) : BaseDialog(context) {
         listAddCC.layoutManager = mLayoutManager
         listAddCC.adapter = mAdapter
         updateData()
-        btnAdd.setOnClickListener { view ->
+        btnAdd.setOnClickListener { _ ->
             run {
                 addRecord()
                 dismiss()
             }
         }
-        btnCancel.setOnClickListener { view ->
+        btnCancel.setOnClickListener { _ ->
             run {
                 dismiss()
             }
         }
-        add_cc_date.setOnClickListener { view ->
+        add_cc_date.setOnClickListener { _ ->
             run {
                 DatePickerDialog(mContext, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),

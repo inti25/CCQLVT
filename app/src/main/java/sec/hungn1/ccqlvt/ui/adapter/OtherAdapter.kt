@@ -15,7 +15,7 @@ import org.greenrobot.eventbus.EventBus
 import sec.hungn1.ccqlvt.R
 import sec.hungn1.ccqlvt.core.application.Constants
 import sec.hungn1.ccqlvt.core.database.entities.Other
-import sec.hungn1.ccqlvt.ui.AddOtherDialog
+import sec.hungn1.ccqlvt.ui.dialog.AddOtherDialog
 import sec.hungn1.ccqlvt.util.Event
 import sec.hungn1.ccqlvt.util.Utils
 
@@ -126,11 +126,11 @@ class OtherAdapter() : RecyclerView.Adapter<OtherAdapter.ViewHolder>() {
                         holder.mContainer.setOnLongClickListener { view: View ->
                             android.support.v7.app.AlertDialog.Builder(view.context)
                                     .setTitle("Hành động")
-                                    .setPositiveButton("Xóa", { dialog: DialogInterface, i: Int ->
+                                    .setPositiveButton("Xóa", { dialog: DialogInterface, _: Int ->
                                         EventBus.getDefault().post(Event(Constants.EVENT_OTHER_REMOVE, item))
                                         dialog.dismiss()
                                     })
-                                    .setNegativeButton("Sửa", { dialog: DialogInterface?, i: Int ->
+                                    .setNegativeButton("Sửa", { dialog: DialogInterface?, _: Int ->
                                         AddOtherDialog(view.context, item).show()
                                         dialog?.dismiss()
                                     })
